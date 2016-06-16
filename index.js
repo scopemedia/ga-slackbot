@@ -25,27 +25,27 @@ bot.startRTM(function(error, whichBot, payload) {
     throw new Error('Could not connect to Slack');
   }
 });
-controller.hears(['hello'], ['mention'], function(whichBot, message) {
-  whichBot.reply(message, 'Did you say my name?');
-});
 
-controller.hears(['YO'], ['mention'], function(whichBot, message) {
-  whichBot.reply(message, 'YO ' + 'Ewan' + '!!');
-});
 
-// give the bot something to listen for.
-controller.hears('hello',['direct_message'],function(bot,message) {
-  bot.reply(message,'Hello yourself.');
-});
 
-// Icon Emoji
+// IDEA Bot that watches RSS Feed and posts message plus emoji.
+// Bot listens for RSS updates
+// Bot Name "NCP hard worker"
+// Bot Avatar ":ghost:"
+// Replys - Repo Updated :boom:
 
-controller.hears('mood',['direct_message'],function(bot,message) {
-    //
-    bot.reply(message,{
-      text: "Happy ",
-      username: "ReplyBot",
-      icon_emoji: ":ghost:",
-    });
+// Chooses an icon :boom: :raised_hands: :thumbsup: :star2: :sunglasses:
 
+var emojiList = [':boom:', ':raised_hands:', ':thumbsup:', ':star2:', ':sunglasses:']
+
+function getRandom() {
+  return Math.floor(Math.random() * emojiList.length);
+}
+
+controller.hears('RSS',['direct_message'],function(bot,message) {
+  bot.reply(message,{
+    text: 'Deployed to repo ' + emojiList[getRandom()],
+    username: "NCP hard worker",
+    icon_emoji: ":ghost:",
+  });
 })
